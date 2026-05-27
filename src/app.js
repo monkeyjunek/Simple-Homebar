@@ -1211,9 +1211,8 @@ function renderMyRecipes() {
 }
 
 function estimatorRecipes() {
-  const matches = exactInventoryRecipes();
-  if (state.inventory.size) return matches;
-  return cocktails.filter((cocktail) => cocktail.popular).slice(0, 6);
+  if (!state.inventory.size) return [];
+  return exactInventoryRecipes();
 }
 
 function recipeMatchCard(cocktail, detail) {
@@ -1241,10 +1240,13 @@ function renderEstimator() {
   const options = estimatorRecipes();
   if (!options.length) {
     estimatorState.recipeId = null;
-    els.estimatorRecipeSelect.innerHTML = `<option>No complete recipes yet</option>`;
+    els.estimatorRecipeSelect.disabled = true;
+    els.estimatorRecipeSelect.innerHTML = `<option>Add ingredients first</option>`;
     els.estimatorDrinkCount.textContent = "0";
     els.estimatorDrinkName.textContent = "drinks";
-    els.estimatorIngredients.innerHTML = `<p class="empty-state">Add the missing ingredients from Recommended Recipes to estimate a drink.</p>`;
+    els.estimatorIngredients.innerHTML = state.inventory.size
+      ? `<p class="empty-state">No complete recipes yet. Add the missing ingredients from Recommended Recipes to estimate a drink.</p>`
+      : `<p class="empty-state">Add ingredients to your inventory first. Complete recipes will appear here.</p>`;
     return;
   }
 
@@ -1259,6 +1261,7 @@ function renderEstimator() {
         `<option value="${cocktail.id}" ${cocktail.id === estimatorState.recipeId ? "selected" : ""}>${cocktail.name}</option>`
     )
     .join("");
+  els.estimatorRecipeSelect.disabled = false;
 
   const selected = cocktails.find((cocktail) => cocktail.id === estimatorState.recipeId) || options[0];
   const scalable = estimatorIngredientsForRecipe(selected);
