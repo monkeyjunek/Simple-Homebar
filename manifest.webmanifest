@@ -1,0 +1,10 @@
+{
+  "name": "Simple Homebar",
+  "short_name": "Homebar",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#151518",
+  "theme_color": "#0b141d",
+  "orientation": "portrait",
+  "icons": []
+}

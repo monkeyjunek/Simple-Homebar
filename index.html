@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0b141d" />
+    <title>Simple Homebar</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Arima+Madurai:wght@600&family=Fredoka:wght@500;600&family=Inter:wght@400;500;600&family=Mulish:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css?v=35" />
+  </head>
+  <body>
+    <main class="phone-shell" aria-label="Simple Homebar app">
+      <section class="auth-screen" id="authScreen" aria-label="Welcome to Simple Homebar">
+        <div class="auth-brand">
+          <span class="logo-mark" aria-hidden="true">
+            <img class="logo-bottle" src="./assets/logo-bottle.png" alt="" />
+            <img class="logo-shaker" src="./assets/logo-shaker.png" alt="" />
+          </span>
+          <div class="brand">Simple<br />Homebar</div>
+        </div>
+
+        <section class="auth-panel" id="authWelcome">
+          <div class="auth-copy">
+            <h1>Your bar, your recipes.</h1>
+            <p>Build your home inventory, discover what you can make, and save the drinks you love.</p>
+          </div>
+          <div class="auth-actions">
+            <button class="primary-button" type="button" id="showSignup">Create account</button>
+            <button class="outline-action" type="button" id="showLogin">Log in</button>
+            <button class="text-button" type="button" id="continueGuest">Continue as guest</button>
+          </div>
+        </section>
+
+        <section class="auth-panel hidden" id="signupPanel">
+          <div class="auth-copy">
+            <h1>Create account</h1>
+            <p>We’ll use this to personalize your Profile tab.</p>
+          </div>
+          <form class="auth-form" id="signupForm">
+            <label>
+              Name
+              <input id="signupName" type="text" autocomplete="name" required />
+            </label>
+            <label>
+              Email
+              <input id="signupEmail" type="email" autocomplete="email" required />
+            </label>
+            <label>
+              Password
+              <input id="signupPassword" type="password" autocomplete="new-password" required minlength="6" />
+            </label>
+            <label>
+              Confirm password
+              <input id="signupConfirm" type="password" autocomplete="new-password" required minlength="6" />
+            </label>
+            <p class="form-message" id="signupMessage" aria-live="polite"></p>
+            <button class="primary-button" type="submit">Create account</button>
+            <button class="text-button" type="button" data-auth-mode="welcome">Back</button>
+          </form>
+        </section>
+
+        <section class="auth-panel hidden" id="loginPanel">
+          <div class="auth-copy">
+            <h1>Log in</h1>
+            <p>Use the account you created on this device.</p>
+          </div>
+          <form class="auth-form" id="loginForm">
+            <label>
+              Email
+              <input id="loginEmail" type="email" autocomplete="email" required />
+            </label>
+            <label>
+              Password
+              <input id="loginPassword" type="password" autocomplete="current-password" required />
+            </label>
+            <p class="form-message" id="loginMessage" aria-live="polite"></p>
+            <button class="primary-button" type="submit">Log in</button>
+            <button class="text-button" type="button" data-auth-mode="welcome">Back</button>
+          </form>
+        </section>
+      </section>
+
+      <header class="top-bar" id="appHeader">
+        <button class="icon-button logo-button" type="button" aria-label="Simple Homebar home" data-open-home>
+          <span class="logo-mark" aria-hidden="true">
+            <img class="logo-bottle" src="./assets/logo-bottle.png" alt="" />
+            <img class="logo-shaker" src="./assets/logo-shaker.png" alt="" />
+          </span>
+        </button>
+        <div class="brand">Simple<br />Homebar</div>
+        <button class="profile-button" type="button" aria-label="Profile" data-open-profile>
+          <span class="profile-glyph" aria-hidden="true"></span>
+        </button>
+      </header>
+
+      <section class="screen" id="home-screen">
+        <h1>Discover</h1>
+
+        <section class="make-panel">
+          <h2>What Can I make?</h2>
+          <p>Enter your ingredients to see what you can make!</p>
+          <button class="primary-button" type="button" id="inventoryButton">
+            My Inventory
+          </button>
+        </section>
+
+        <section class="finder-panel">
+          <h2>Find your perfect cocktail</h2>
+          <label class="search-field">
+            <span class="search-icon" aria-hidden="true"></span>
+            <input id="recipeSearch" type="search" placeholder="Search recipes..." autocomplete="off" />
+          </label>
+          <div class="filter-heading">
+            <span class="funnel-icon" aria-hidden="true"></span>
+            <span>Search by</span>
+          </div>
+          <div class="category-row" id="categoryRow" aria-label="Filter categories"></div>
+          <button class="outline-action" type="button" id="findRecipesButton">
+            <span class="bulb-icon" aria-hidden="true"></span>
+            Not sure what to make? Find recipes
+            <span class="arrow-icon" aria-hidden="true"></span>
+          </button>
+        </section>
+
+        <section class="filter-panel hidden" id="filterPanel" aria-live="polite">
+          <div class="filter-panel-header">
+            <div>
+              <h3 id="filterTitle">Search by Ingredient</h3>
+              <p id="filterSubtitle">Select one or more ingredient options</p>
+            </div>
+            <button class="close-button" type="button" id="closeFilters" aria-label="Close filters"></button>
+          </div>
+          <div class="option-grid" id="optionGrid"></div>
+          <button class="apply-button" type="button" id="applyFilters">Apply Option(s)</button>
+        </section>
+
+        <section class="inventory-panel hidden" id="inventoryPanel">
+          <div class="filter-panel-header">
+            <div>
+              <h3>My Inventory</h3>
+              <p>Choose what is in your home bar.</p>
+            </div>
+            <button class="close-button" type="button" id="closeInventory" aria-label="Close inventory"></button>
+          </div>
+          <div class="option-grid compact" id="inventoryGrid"></div>
+        </section>
+
+        <section class="popular-panel">
+          <h2 id="resultsTitle">Popular Cocktails</h2>
+          <div class="card-grid" id="cocktailGrid"></div>
+          <div class="pagination-controls hidden" id="cocktailPagination" aria-label="Cocktail pages"></div>
+        </section>
+      </section>
+
+      <section class="screen hidden" id="myBarScreen">
+        <section class="mybar-hero">
+          <h1>My Bar</h1>
+          <p id="myBarSubtitle">Manage your collection</p>
+        </section>
+
+        <div class="mybar-toggle" role="tablist" aria-label="My Bar sections">
+          <button class="active" type="button" id="myInventoryToggle" role="tab" aria-selected="true">
+            <span class="inventory-tab-icon" aria-hidden="true"></span>
+            My Inventory
+          </button>
+          <button type="button" id="myRecipesToggle" role="tab" aria-selected="false">
+            <span class="recipes-tab-icon" aria-hidden="true"></span>
+            My Recipes
+          </button>
+        </div>
+
+        <section class="mybar-inventory" id="myInventoryPanel">
+          <div class="mybar-section-title">
+            <h2 id="inventoryTitle">Your Ingredients</h2>
+            <label class="easy-toggle">
+              <input type="checkbox" id="easyModeToggle" />
+              <span class="easy-switch" aria-hidden="true"></span>
+              <span>Easy</span>
+            </label>
+          </div>
+          <p class="mybar-copy" id="inventoryCopy">What’s in your home bar right now? Add your ingredients to see what you can make</p>
+          <section class="quick-add hidden" id="quickAddPanel">
+            <h3>Quick Add</h3>
+            <div class="quick-add-list" id="quickAddList"></div>
+          </section>
+          <label class="search-field mybar-search">
+            <span class="search-icon" aria-hidden="true"></span>
+            <input id="ingredientSearch" type="search" placeholder="Search ingredients..." autocomplete="off" />
+          </label>
+
+          <section class="inventory-dashboard" id="inventoryDashboard"></section>
+          <button class="see-recipes-button hidden" type="button" id="seeRecipesButton">
+            See Recipes
+          </button>
+
+          <section class="ingredient-browser hidden" id="ingredientBrowser">
+            <div class="filter-heading">
+              <span class="funnel-icon" aria-hidden="true"></span>
+              <span>Filter by</span>
+            </div>
+            <div class="category-row mybar-categories" id="ingredientCategoryRow" aria-label="Ingredient categories"></div>
+            <div class="ingredient-card-grid" id="ingredientGrid"></div>
+            <div class="pagination-controls hidden" id="ingredientPagination" aria-label="Ingredient pages"></div>
+            <button class="add-selected-button" type="button" id="addSelectedIngredients">
+              <span class="check-icon" aria-hidden="true"></span>
+              Add Ingredient(s)
+            </button>
+          </section>
+
+          <section class="calculator-panel">
+            <h2><span class="calculator-icon" aria-hidden="true"></span>Cocktail Estimator</h2>
+            <p>Select your available recipe. Then use sliders to adjust your current quantity by estimation and see how many drinks you can make.</p>
+
+            <section class="estimator-card" aria-label="Cocktail Estimator">
+              <div class="estimator-display">
+                <label class="estimator-recipe-select">
+                  Recipe:
+                  <select id="estimatorRecipeSelect"></select>
+                </label>
+                <p>YOU CAN MAKE</p>
+                <strong id="estimatorDrinkCount">0</strong>
+                <span id="estimatorDrinkName">drinks</span>
+              </div>
+              <div class="estimator-ingredients" id="estimatorIngredients"></div>
+            </section>
+          </section>
+        </section>
+
+        <section class="mybar-recipes hidden" id="myRecipesPanel">
+          <h2>What You Can Make</h2>
+          <p class="mybar-copy">Add ingredients to your inventory first, then come back to see recipes matched to your bar.</p>
+          <div class="card-grid" id="myRecipesGrid"></div>
+          <section class="recommended-recipes">
+            <h2>Recommended Recipes</h2>
+            <p class="mybar-copy">Close matches that need one or two more ingredients.</p>
+            <div class="card-grid" id="recommendedRecipesGrid"></div>
+          </section>
+        </section>
+      </section>
+
+      <section class="screen profile-screen hidden" id="profileScreen">
+        <section class="profile-hero">
+          <h1>Profile</h1>
+          <p>Manage your preferences</p>
+        </section>
+
+        <section class="profile-summary-card" aria-label="Profile summary">
+          <div class="profile-person">
+            <div class="profile-avatar" aria-hidden="true">
+              <span class="profile-small"></span>
+            </div>
+            <div>
+              <h2 id="profileName">Guest User</h2>
+              <p id="profileEmail">Sign up to save your homebar</p>
+            </div>
+          </div>
+          <div class="profile-stats">
+            <div>
+              <strong id="profileIngredientCount">0</strong>
+              <span>Ingredients</span>
+            </div>
+            <div>
+              <strong id="profileRecipeCount">0</strong>
+              <span>Recipes</span>
+            </div>
+            <div>
+              <strong id="profileSavedCount">0</strong>
+              <span>Saved recipes</span>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-section">
+          <h2><span class="settings-icon" aria-hidden="true"></span>Settings</h2>
+          <div class="settings-list">
+            <button type="button"><span class="account-icon" aria-hidden="true"></span>Account</button>
+            <button type="button"><span class="notification-icon" aria-hidden="true"></span>Notifications</button>
+            <button type="button"><span class="appearance-icon" aria-hidden="true"></span>Appearance</button>
+            <button type="button" id="copyInventoryBackup"><span class="saved-icon" aria-hidden="true"></span>Copy inventory backup</button>
+            <button type="button" id="restoreInventoryBackup"><span class="inventory-tab-icon" aria-hidden="true"></span>Restore inventory backup</button>
+            <button type="button"><span class="about-icon" aria-hidden="true"></span>About</button>
+          </div>
+          <p class="profile-note" id="profileBackupMessage" aria-live="polite"></p>
+          <div class="backup-panel hidden" id="backupPanel">
+            <label>
+              Inventory backup
+              <textarea id="inventoryBackupText" rows="5" spellcheck="false"></textarea>
+            </label>
+            <div class="backup-actions">
+              <button class="outline-action" type="button" id="selectInventoryBackup">Select text</button>
+              <button class="primary-button" type="button" id="applyInventoryBackup">Restore from text</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="profile-section">
+          <h2><span class="photo-icon" aria-hidden="true"></span>Photo Log (1)</h2>
+          <div class="photo-log-grid">
+            <button class="photo-log-card" type="button" aria-label="Open photo log entry">
+              <img src="./assets/generated/cocktails/amf.png" alt="Blue cocktail photo log entry" loading="lazy" />
+            </button>
+          </div>
+        </section>
+
+        <section class="profile-section">
+          <h2><span class="saved-icon" aria-hidden="true"></span>Saved Recipes (<span id="profileSavedTitleCount">0</span>)</h2>
+          <div class="card-grid" id="profileSavedGrid"></div>
+        </section>
+      </section>
+
+      <nav class="bottom-nav" id="primaryNav" aria-label="Primary">
+        <button class="nav-item active" type="button" id="navHome" aria-label="Home">
+          <span class="home-icon" aria-hidden="true"></span>
+          Home
+        </button>
+        <button class="nav-item" type="button" id="navInventory" aria-label="My Bar">
+          <span class="bar-icon" aria-hidden="true"></span>
+          My Bar
+        </button>
+        <button class="nav-item" type="button" id="navProfile" aria-label="Profile">
+          <span class="profile-small" aria-hidden="true"></span>
+          Profile
+        </button>
+      </nav>
+
+      <section class="undo-banner hidden" id="undoBanner" aria-live="polite">
+        <span id="undoBannerText">Ingredient removed.</span>
+        <button type="button" id="undoRemoveIngredient">Undo</button>
+      </section>
+
+      <button class="page-jump-button hidden" type="button" id="pageJumpButton" aria-label="Scroll to bottom">
+        <span aria-hidden="true"></span>
+      </button>
+
+      <section class="recipe-sheet hidden" id="recipeSheet" aria-live="polite" aria-label="Recipe details">
+        <header class="top-bar recipe-top-bar">
+          <button class="icon-button logo-button" type="button" aria-label="Simple Homebar home" data-open-home>
+            <span class="logo-mark" aria-hidden="true">
+              <img class="logo-bottle" src="./assets/logo-bottle.png" alt="" />
+              <img class="logo-shaker" src="./assets/logo-shaker.png" alt="" />
+            </span>
+          </button>
+          <div class="brand">Simple<br />Homebar</div>
+          <button class="profile-button" type="button" aria-label="Profile" data-open-profile>
+            <span class="profile-glyph" aria-hidden="true"></span>
+          </button>
+        </header>
+        <article class="recipe-page-detail">
+          <div class="recipe-title-row">
+            <button class="recipe-back" type="button" id="closeRecipe" aria-label="Back to recipes"></button>
+            <h1 id="recipeName"></h1>
+            <p class="recipe-glass" id="recipeMeta"></p>
+          </div>
+
+          <section class="scale-row" aria-label="Scale recipe">
+            <div class="scale-box">
+              <p>Servings</p>
+              <div class="scale-options" id="servingOptions"></div>
+            </div>
+            <div class="scale-box unit-box">
+              <p>Measurement Units</p>
+              <div class="scale-options" id="unitOptions"></div>
+            </div>
+          </section>
+
+          <section class="recipe-ingredients-box" id="recipeIngredients"></section>
+
+          <div class="recipe-image-wrap">
+            <img id="recipeImage" alt="" />
+            <button class="save-recipe" type="button" id="saveRecipe" aria-label="Save recipe"></button>
+          </div>
+
+          <section class="recipe-instructions">
+            <h2>Instructions</h2>
+            <div id="recipeInstructions"></div>
+          </section>
+        </article>
+        <nav class="bottom-nav recipe-nav" aria-label="Recipe navigation">
+          <button class="nav-item" type="button" aria-label="Home" data-open-home>
+            <span class="home-icon" aria-hidden="true"></span>
+            Home
+          </button>
+          <button class="nav-item active" type="button" aria-label="My Bar">
+            <span class="bar-icon" aria-hidden="true"></span>
+            My Bar
+          </button>
+          <button class="nav-item" type="button" aria-label="Profile" data-open-profile>
+            <span class="profile-small" aria-hidden="true"></span>
+            Profile
+          </button>
+        </nav>
+      </section>
+    </main>
+
+    <script type="module" src="./src/app.js?v=35"></script>
+  </body>
+</html>

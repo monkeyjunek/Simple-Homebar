@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1402 1122" role="img">
+  <defs>
+    <radialGradient id="light" cx="47%" cy="24%" r="58%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".32"/>
+      <stop offset=".55" stop-color="#67bde6" stop-opacity=".13"/>
+      <stop offset="1" stop-color="#0e6095" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".62"/>
+      <stop offset=".42" stop-color="#fff" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".5"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#001525" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <rect width="1402" height="1122" fill="#0e6095"/>
+  <rect width="1402" height="1122" fill="url(#light)"/>
+  <ellipse cx="701" cy="936" rx="360" ry="54" fill="rgba(0,0,0,.24)"/>
+  <g filter="url(#softShadow)">
+    <path d="M692 812c-10-195 38-350 141-465" fill="none" stroke="#155f37" stroke-width="16" stroke-linecap="round"/>
+    <ellipse cx="600" cy="328" rx="52" ry="92" fill="#2fa95b" transform="rotate(24 600 328)"/><ellipse cx="672" cy="382" rx="52" ry="92" fill="#2fa95b" transform="rotate(-28 672 382)"/><ellipse cx="744" cy="436" rx="52" ry="92" fill="#2fa95b" transform="rotate(24 744 436)"/><ellipse cx="600" cy="490" rx="52" ry="92" fill="#2fa95b" transform="rotate(-28 600 490)"/><ellipse cx="672" cy="544" rx="52" ry="92" fill="#2fa95b" transform="rotate(24 672 544)"/><ellipse cx="744" cy="598" rx="52" ry="92" fill="#2fa95b" transform="rotate(-28 744 598)"/><ellipse cx="600" cy="652" rx="52" ry="92" fill="#2fa95b" transform="rotate(24 600 652)"/><ellipse cx="672" cy="706" rx="52" ry="92" fill="#2fa95b" transform="rotate(-28 672 706)"/><ellipse cx="744" cy="760" rx="52" ry="92" fill="#2fa95b" transform="rotate(24 744 760)"/></g>
+</svg>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1402 1122" role="img">
+  <defs>
+    <radialGradient id="light" cx="47%" cy="24%" r="58%">
+      <stop offset="0" stop-color="#ffffff" stop-opacity=".32"/>
+      <stop offset=".55" stop-color="#67bde6" stop-opacity=".13"/>
+      <stop offset="1" stop-color="#0e6095" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="glassGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#fff" stop-opacity=".62"/>
+      <stop offset=".42" stop-color="#fff" stop-opacity=".18"/>
+      <stop offset="1" stop-color="#fff" stop-opacity=".5"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="28" stdDeviation="24" flood-color="#001525" flood-opacity=".35"/>
+    </filter>
+  </defs>
+  <rect width="1402" height="1122" fill="#0e6095"/>
+  <rect width="1402" height="1122" fill="url(#light)"/>
+  <ellipse cx="701" cy="936" rx="360" ry="54" fill="rgba(0,0,0,.24)"/>
+  <g filter="url(#softShadow)">
+    <path d="M513 300c0-34 376-34 376 0v235c0 98-75 181-169 191v118h111v76H571v-76h111V726c-94-10-169-93-169-191V300Z" fill="url(#glassGrad)" stroke="rgba(255,255,255,.68)" stroke-width="10"/>
+    <path d="M545 438h312v95c0 86-70 156-156 156s-156-70-156-156v-95Z" fill="#b86f24" opacity=".88"/>
+    <path d="M581 336c-11 82-17 172 11 232" fill="none" stroke="rgba(255,255,255,.82)" stroke-width="14" stroke-linecap="round" opacity=".65"/></g>
+</svg>
